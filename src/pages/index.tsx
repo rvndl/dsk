@@ -17,7 +17,7 @@ const Home = () => {
       >
         <input
           type="password"
-          placeholder="Enter password"
+          placeholder="Enter a password"
           className="w-full h-10 mx-2 outline-none"
           name="password"
         />
