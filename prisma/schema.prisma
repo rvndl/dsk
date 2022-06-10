@@ -1,0 +1,18 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model File {
+  id              String  @id @default(cuid())
+  name            String
+  size            Int
+  extension       String
+  downloads       Int     @default(0)
+  shared          Boolean @default(false)
+  sharesRemaining Int     @default(0)
+}
