@@ -29,7 +29,7 @@ export default NextAuth({
     },
     session({ session, token }) {
       if (token) {
-        session.loggedIn = token.LoggedIn;
+        session.loggedIn = token.loggedIn;
       }
 
       return session;

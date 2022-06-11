@@ -1,16 +1,32 @@
 import { withTRPC } from "@trpc/next";
-import { AppType } from "next/dist/shared/lib/utils";
+import {
+  AppType,
+  NextComponentType,
+  NextPageContext,
+} from "next/dist/shared/lib/utils";
 import { AppRouter } from "./api/trpc/[trpc]";
 import { SessionProvider } from "next-auth/react";
 import "../styles/globals.css";
+import Auth from "../components/auth/auth";
+
+interface Props {
+  Component: NextComponentType<NextPageContext, any, {}>;
+  pageProps: any;
+}
 
 const MyApp: AppType = ({
   Component,
   pageProps: { session, ...pageProps },
-}) => {
+}: Props) => {
   return (
     <SessionProvider session={session}>
-      <Component {...pageProps} />
+      {(Component as any).auth ? (
+        <Auth>
+          <Component {...pageProps} />
+        </Auth>
+      ) : (
+        <Component {...pageProps} />
+      )}
     </SessionProvider>
   );
 };

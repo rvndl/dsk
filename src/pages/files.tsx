@@ -6,4 +6,6 @@ const Files = () => {
   );
 };
 
+Files.auth = true;
+
 export default Files;
