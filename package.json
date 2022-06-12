@@ -15,6 +15,8 @@
     "@trpc/react": "^9.24.0",
     "@trpc/server": "^9.24.0",
     "clsx": "^1.1.1",
+    "directory-tree": "^3.3.0",
+    "glob": "^8.0.3",
     "next": "12.1.6",
     "next-auth": "^4.4.0",
     "prisma": "^3.15.1",
