@@ -1,6 +1,3 @@
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { useMemo } from "react";
 import FileList from "../../components/filelist/filelist";
 import { trpc } from "../../utils/trpc";
 
