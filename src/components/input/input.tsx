@@ -1,4 +1,6 @@
-interface Props extends React.InputHTMLAttributes<HTMLInputElement> {}
+import { InputHTMLAttributes } from "react";
+
+interface Props extends InputHTMLAttributes<HTMLInputElement> {}
 
 export const Input = ({ ...rest }: Props) => {
   return (

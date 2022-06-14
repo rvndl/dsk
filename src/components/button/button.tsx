@@ -1,6 +1,7 @@
+import { ButtonHTMLAttributes } from "react";
 import { SpinnerCircular } from "spinners-react";
 
-interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   isLoading?: boolean;
 }

@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import { inferQueryResponse } from "@pages/api/trpc/[trpc]";
 import { FileListHeader } from "./filelist-header";
 import { FileListItem } from "./filelist-item";
+import { FileListBreadcrumb } from "./filelist-breadcrumb";
 
 type FilesType = inferQueryResponse<"file.get-all">;
 
@@ -26,11 +27,14 @@ export const FileList = ({ files }: Props) => {
   );
 
   return (
-    <div className="w-full border rounded-lg border-slate-200">
-      <FileListHeader />
-      {contents?.map((file) => (
-        <FileListItem key={file.name} path={path} file={file} />
-      ))}
-    </div>
+    <>
+      <FileListBreadcrumb path={path} />
+      <div className="w-full border rounded-lg border-slate-200">
+        <FileListHeader />
+        {contents?.map((file) => (
+          <FileListItem key={file.name} path={path} file={file} />
+        ))}
+      </div>
+    </>
   );
 };
