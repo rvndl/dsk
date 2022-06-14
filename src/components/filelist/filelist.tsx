@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
 import { useMemo } from "react";
-import { inferQueryResponse } from "../../pages/api/trpc/[trpc]";
-import FileListHeader from "./filelist-header";
-import FileListItem from "./filelist-item";
+import { inferQueryResponse } from "@pages/api/trpc/[trpc]";
+import { FileListHeader } from "./filelist-header";
+import { FileListItem } from "./filelist-item";
 
 type FilesType = inferQueryResponse<"file.get-all">;
 
@@ -10,7 +10,7 @@ interface Props {
   files: FilesType | undefined;
 }
 
-const FileList = ({ files }: Props) => {
+export const FileList = ({ files }: Props) => {
   const router = useRouter();
   const slugs = router.query.path;
 
@@ -34,5 +34,3 @@ const FileList = ({ files }: Props) => {
     </div>
   );
 };
-
-export default FileList;

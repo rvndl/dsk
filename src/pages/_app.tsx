@@ -6,8 +6,8 @@ import {
 } from "next/dist/shared/lib/utils";
 import { AppRouter } from "./api/trpc/[trpc]";
 import { SessionProvider } from "next-auth/react";
-import "../styles/globals.css";
-import Auth from "../components/auth/auth";
+import "@styles/globals.css";
+import Auth from "@components/auth/auth";
 
 interface Props {
   Component: NextComponentType<NextPageContext, any, {}>;

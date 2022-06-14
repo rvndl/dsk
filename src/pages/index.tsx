@@ -1,8 +1,9 @@
+import { Button } from "@components/button";
+import { Input } from "@components/input";
 import { GetServerSideProps } from "next";
 import { getSession, signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import Button from "../components/button/button";
 
 interface SignInResponse {
   error: string | null;
@@ -48,7 +49,7 @@ const Home = () => {
         onSubmit={handleOnSubmit}
         className="flex p-2 bg-white rounded-lg shadow-md"
       >
-        <input
+        <Input
           type="password"
           placeholder="Enter a password"
           className="w-full h-10 mx-2 outline-none"

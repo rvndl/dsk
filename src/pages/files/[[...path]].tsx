@@ -1,5 +1,5 @@
-import FileList from "../../components/filelist/filelist";
-import { trpc } from "../../utils/trpc";
+import { FileList } from "@components/filelist";
+import { trpc } from "@utils/trpc";
 
 const Files = () => {
   const { data, error } = trpc.useQuery(["file.get-all"]);

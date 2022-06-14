@@ -5,7 +5,7 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   isLoading?: boolean;
 }
 
-const Button = ({ children, className, isLoading, ...rest }: Props) => {
+export const Button = ({ children, className, isLoading, ...rest }: Props) => {
   return (
     <button
       {...rest}
@@ -18,5 +18,3 @@ const Button = ({ children, className, isLoading, ...rest }: Props) => {
     </button>
   );
 };
-
-export default Button;
