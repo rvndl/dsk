@@ -7,5 +7,6 @@ export { IconMusic } from "./icon-music";
 export { IconTerminal } from "./icon-terminal";
 export { IconCog } from "./icon-cog";
 export { IconArchive } from "./icon-archive";
+export { IconLogout } from "./icon-logout";
 
 export { IconMatchExtension } from "./icon-match-extension";

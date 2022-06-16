@@ -1,12 +1,14 @@
 import { FileList } from "@components/filelist";
+import { Navbar } from "@components/navbar/navbar";
 import { trpc } from "@utils/trpc";
 
 const Files = () => {
   const { data, error } = trpc.useQuery(["file.get-all"]);
 
   return (
-    <div className="flex items-center justify-center w-screen h-screen">
-      <div className="w-2/3">
+    <div className="w-screen h-screen">
+      <Navbar />
+      <div className="justify-center w-full mx-auto mt-10 lg:w-4/5 xl:w-3/5">
         <FileList files={data} />
       </div>
     </div>

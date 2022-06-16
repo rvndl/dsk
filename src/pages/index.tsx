@@ -1,5 +1,6 @@
 import { Button } from "@components/button";
 import { Input } from "@components/input";
+import { Navbar } from "@components/navbar/navbar";
 import { GetServerSideProps } from "next";
 import { getSession, signIn } from "next-auth/react";
 import { useRouter } from "next/router";

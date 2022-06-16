@@ -57,8 +57,11 @@ const readDirectory = (dir: string) => {
 export const file = trpc.router().query("get-all", {
   resolve() {
     const uploadsDirectory = path.join(process.cwd(), "uploads");
-    const files = readDirectory(uploadsDirectory);
+    if (!fs.existsSync(uploadsDirectory)) {
+      fs.mkdirSync(uploadsDirectory);
+    }
 
+    const files = readDirectory(uploadsDirectory);
     return files;
   },
 });
