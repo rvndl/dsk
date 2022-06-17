@@ -8,6 +8,7 @@ import { AppRouter } from "./api/trpc/[trpc]";
 import { SessionProvider } from "next-auth/react";
 import "@styles/globals.css";
 import Auth from "@components/auth/auth";
+import { Layout } from "@components/layout";
 
 interface Props {
   Component: NextComponentType<NextPageContext, any, {}>;
@@ -20,13 +21,15 @@ const MyApp: AppType = ({
 }: Props) => {
   return (
     <SessionProvider session={session}>
-      {(Component as any).auth ? (
-        <Auth>
+      <Layout>
+        {(Component as any).auth ? (
+          <Auth>
+            <Component {...pageProps} />
+          </Auth>
+        ) : (
           <Component {...pageProps} />
-        </Auth>
-      ) : (
-        <Component {...pageProps} />
-      )}
+        )}
+      </Layout>
     </SessionProvider>
   );
 };

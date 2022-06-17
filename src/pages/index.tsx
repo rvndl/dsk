@@ -44,7 +44,7 @@ const Home = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center w-screen h-screen bg-gray-100">
+    <div className="flex flex-col items-center justify-center w-full h-full">
       {error && <p className="my-2 text-red-500">{error}</p>}
       <form
         onSubmit={handleOnSubmit}

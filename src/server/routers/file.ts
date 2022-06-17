@@ -1,7 +1,7 @@
 import * as trpc from "@trpc/server";
 import path from "path";
 import * as fs from "fs";
-
+import { z } from "zod";
 interface FileInfo {
   name: string;
   type: "file" | "directory";
@@ -11,7 +11,7 @@ interface FileInfo {
   modified: Date;
 }
 
-const readDirectory = (dir: string) => {
+export const readDirectory = (dir: string) => {
   const results: FileInfo[] = [];
 
   const traverseDir = (dir: string) => {
@@ -54,14 +54,29 @@ const readDirectory = (dir: string) => {
   return results;
 };
 
-export const file = trpc.router().query("get-all", {
-  resolve() {
-    const uploadsDirectory = path.join(process.cwd(), "uploads");
-    if (!fs.existsSync(uploadsDirectory)) {
-      fs.mkdirSync(uploadsDirectory);
-    }
+export const file = trpc
+  .router()
+  .query("get-all", {
+    resolve() {
+      const uploadsDirectory = path.join(process.cwd(), "uploads");
+      if (!fs.existsSync(uploadsDirectory)) {
+        fs.mkdirSync(uploadsDirectory);
+      }
 
-    const files = readDirectory(uploadsDirectory);
-    return files;
-  },
-});
+      const files = readDirectory(uploadsDirectory);
+      return files;
+    },
+  })
+  .query("get-content", {
+    input: z.object({
+      name: z.string(),
+    }),
+    resolve({ input }) {
+      const uploadsDirectory = path.join(process.cwd(), "uploads");
+      const filePath = path.join(uploadsDirectory, input.name);
+
+      const fileContent = fs.readFileSync(filePath, "utf8");
+
+      return fileContent;
+    },
+  });

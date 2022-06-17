@@ -21,3 +21,11 @@ export function humanFileSize(bytes: number, si = false, dp = 1) {
 
   return bytes.toFixed(dp) + " " + units[u];
 }
+interface FileInfo {
+  name: string;
+  type: "file" | "directory";
+  ext?: string;
+  size: number;
+  parent: string;
+  modified: Date;
+}
