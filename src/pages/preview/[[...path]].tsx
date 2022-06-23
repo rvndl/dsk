@@ -46,4 +46,6 @@ const Preview = () => {
   );
 };
 
+Preview.auth = true;
+
 export default Preview;

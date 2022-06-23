@@ -2,6 +2,8 @@ import * as trpc from "@trpc/server";
 import path from "path";
 import * as fs from "fs";
 import { z } from "zod";
+import { router } from "@trpc/server";
+import { createRouter } from "@server/create-router";
 interface FileInfo {
   name: string;
   type: "file" | "directory";
@@ -54,8 +56,7 @@ export const readDirectory = (dir: string) => {
   return results;
 };
 
-export const file = trpc
-  .router()
+export const file = router()
   .query("get-all", {
     resolve() {
       const uploadsDirectory = path.join(process.cwd(), "uploads");
