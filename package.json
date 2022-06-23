@@ -11,6 +11,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@headlessui/react": "^1.6.5",
     "@prisma/client": "^3.15.1",
     "@trpc/client": "^9.24.0",
     "@trpc/next": "^9.24.0",

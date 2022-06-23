@@ -19,7 +19,7 @@ const Files = () => {
   }
 
   return (
-    <div className="w-full mx-auto mt-10 lg:w-4/5 xl:w-3/5">
+    <div className="w-full pt-10 mx-auto lg:w-4/5 xl:w-3/5">
       <FileList files={data} />
     </div>
   );

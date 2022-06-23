@@ -2,7 +2,7 @@ import { Navbar } from "@components/navbar";
 
 export const Layout = ({ children }: any) => {
   return (
-    <div className="w-screen h-screen">
+    <div className="">
       <Navbar />
       <main className="main">{children}</main>
     </div>
