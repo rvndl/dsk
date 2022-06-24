@@ -50,8 +50,8 @@ export const FileListItem = ({ file, path }: Props) => {
         <div className="flex w-1/3">
           <p>{file.type === "file" && humanFileSize(file.size)}</p>
           <div className="relative ml-auto">
-            <Menu as="div" className="relative inline-block text-left">
-              <Menu.Button className="inline-flex justify-center w-full transition opacity-0 group-hover:opacity-100 text-black/40 hover:text-black">
+            <Menu>
+              <Menu.Button className="flex justify-center w-full transition opacity-0 group-hover:opacity-100 text-black/40 hover:text-black">
                 <IconDots />
               </Menu.Button>
               <Transition
