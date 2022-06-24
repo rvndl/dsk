@@ -11,5 +11,7 @@ export { IconLogout } from "./icon-logout";
 export { IconX } from "./icon-x";
 export { IconHome } from "./icon-home";
 export { IconDots } from "./icon-dots";
+export { IconTrash } from "./icon-trash";
+export { IconShare } from "./icon-share";
 
 export { IconMatchExtension } from "./icon-match-extension";
