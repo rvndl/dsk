@@ -7,12 +7,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model File {
-  id              String  @id @default(cuid())
+model Share {
+  slug            String   @id @default(cuid())
   name            String
-  size            Int
-  extension       String
-  downloads       Int     @default(0)
-  shared          Boolean @default(false)
-  sharesRemaining Int     @default(0)
+  path            String
+  downloads       Int      @default(0)
+  shared          Boolean  @default(false)
+  sharesRemaining Int      @default(0)
+  createdAt       DateTime @default(now())
 }
