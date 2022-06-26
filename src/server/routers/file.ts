@@ -67,13 +67,27 @@ export const file = router()
       return files;
     },
   })
-  .query("get-content", {
+  .query("get-details", {
     input: z.object({
-      name: z.string(),
+      path: z.string(),
     }),
     resolve({ input }) {
       const uploadsDirectory = path.join(process.cwd(), "uploads");
-      const filePath = path.join(uploadsDirectory, input.name);
+      const filePath = path.join(uploadsDirectory, input.path);
+      const stats = fs.lstatSync(filePath);
+
+      return {
+        size: stats.size,
+      };
+    },
+  })
+  .query("get-content", {
+    input: z.object({
+      path: z.string(),
+    }),
+    resolve({ input }) {
+      const uploadsDirectory = path.join(process.cwd(), "uploads");
+      const filePath = path.join(uploadsDirectory, input.path);
 
       const fileContent = fs.readFileSync(filePath, "utf8");
 

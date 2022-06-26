@@ -13,5 +13,7 @@ export { IconHome } from "./icon-home";
 export { IconDots } from "./icon-dots";
 export { IconTrash } from "./icon-trash";
 export { IconShare } from "./icon-share";
+export { IconDuplicate } from "./icon-duplicate";
+export { IconDownload } from "./icon-download";
 
 export { IconMatchExtension } from "./icon-match-extension";

@@ -1,7 +1,9 @@
 import { Button } from "@components/button";
+import { IconDownload, IconDuplicate } from "@components/icon";
 import { trpc } from "@utils/trpc";
-import SyntaxHighlighter from "react-syntax-highlighter";
-import { dracula } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { dracula as theme } from "react-syntax-highlighter/dist/cjs/styles/prism";
+import { SpinnerCircular } from "spinners-react";
 
 interface Props {
   path: string[];
@@ -9,24 +11,41 @@ interface Props {
 }
 
 export const FilePreviewContent = ({ path, filename }: Props) => {
-  const { data, error, isSuccess } = trpc.useQuery([
-    "file.get-content",
-    { name: path.join("/") },
-  ]);
+  const { data, error, isFetching, isSuccess } = trpc.useQuery(
+    ["file.get-content", { path: path.join("/") }],
+    { refetchOnWindowFocus: false }
+  );
 
-  if (!data) {
-    return null;
+  const extension = filename.split(".").pop();
+
+  if (isFetching) {
+    return (
+      <div>
+        <SpinnerCircular />
+      </div>
+    );
+  }
+
+  if (error || !isSuccess) {
+    return <div>error</div>;
   }
 
   return (
-    <div className="w-3/5 p-2 bg-white border contaienr border-slate-200 rounded-xl">
+    <div className="p-2 bg-white border contaienr border-slate-200 rounded-xl">
       <div className="flex p-2 border-b border-slate-200">
         <p className="text-lg font-semibold">{filename}</p>
-        <Button className="px-2 py-0.5 text-sm w-min ml-auto">Download</Button>
+        <div className="flex pl-8 ml-auto gap-x-2">
+          <Button className="flex items-center justify-center p-1 text-sm text-black border w-7 h-7 bg-slate-50 text-red border-slate-200 hover:bg-slate-100">
+            <IconDuplicate />
+          </Button>
+          <Button className="flex items-center justify-center p-1 text-sm w-7 h-7">
+            <IconDownload />
+          </Button>
+        </div>
       </div>
       <SyntaxHighlighter
-        language="js"
-        style={dracula}
+        language={extension}
+        style={theme}
         showLineNumbers
         customStyle={{ maxHeight: "80vh", margin: 0 }}
       >
