@@ -4,8 +4,11 @@ import * as trpcNext from "@trpc/server/adapters/next";
 import { file } from "../../../server/routers/file";
 import { createContext } from "@server/context";
 import { createRouter } from "@server/create-router";
+import { share } from "@server/routers/share";
 
-export const appRouter = createRouter().merge("file.", file);
+export const appRouter = createRouter()
+  .merge("file.", file)
+  .merge("share.", share);
 
 export type AppRouter = typeof appRouter;
 

@@ -18,7 +18,7 @@ export const FilePreviewDownload = ({ path, filename }: Props) => {
       <h2 className="font-semibold">This file cannot be previewed</h2>
       <div className="flex flex-col items-center mt-2 gap-y-1">
         <p className="">
-          {filename} - {humanFileSize(data?.size)}
+          {filename} - {humanFileSize(data?.size || 0)}
         </p>
         <Button className="px-2 py-0.5 text-sm w-min">Download</Button>
       </div>

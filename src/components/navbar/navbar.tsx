@@ -1,7 +1,6 @@
 import { Button } from "@components/button";
 import { IconLogout } from "@components/icon";
 
-import Logo from "@assets/svg/logo.svg";
 import Image from "next/image";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
@@ -12,12 +11,12 @@ export const Navbar = () => {
       <div className="flex items-center">
         <Link href="/">
           <div className="flex items-center cursor-pointer select-none">
-            <Image src={Logo} height={30} width={30} alt="logo" />
+            <Image src="/logo.svg" height={30} width={30} alt="logo" />
             <p className="ml-2 font-bold">dsk</p>
           </div>
         </Link>
       </div>
-      <Button className="px-3 py-1 font-medium text-blue-700 bg-blue-500 rounded-lg bg-opacity-20 hover:bg-opacity-30">
+      <Button className="px-3 py-1 font-medium text-blue-700 bg-blue-500 rounded-lg bg-opacity-20 hover:bg-opacity-25">
         Shared files
       </Button>
       <div

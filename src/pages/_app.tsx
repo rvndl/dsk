@@ -9,6 +9,7 @@ import { SessionProvider } from "next-auth/react";
 import "@styles/globals.css";
 import Auth from "@components/auth/auth";
 import { Layout } from "@components/layout";
+import Head from "next/head";
 
 interface Props {
   Component: NextComponentType<NextPageContext, any, {}>;
@@ -20,17 +21,22 @@ const MyApp: AppType = ({
   pageProps: { session, ...pageProps },
 }: Props) => {
   return (
-    <SessionProvider session={session}>
-      <Layout>
-        {(Component as any).auth ? (
-          <Auth>
+    <>
+      <Head>
+        <title>dsk</title>
+      </Head>
+      <SessionProvider session={session}>
+        <Layout>
+          {(Component as any).auth ? (
+            <Auth>
+              <Component {...pageProps} />
+            </Auth>
+          ) : (
             <Component {...pageProps} />
-          </Auth>
-        ) : (
-          <Component {...pageProps} />
-        )}
-      </Layout>
-    </SessionProvider>
+          )}
+        </Layout>
+      </SessionProvider>
+    </>
   );
 };
 

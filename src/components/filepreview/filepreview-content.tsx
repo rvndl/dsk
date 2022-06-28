@@ -18,14 +18,6 @@ export const FilePreviewContent = ({ path, filename }: Props) => {
 
   const extension = filename.split(".").pop();
 
-  if (isFetching) {
-    return (
-      <div>
-        <SpinnerCircular />
-      </div>
-    );
-  }
-
   if (error || !isSuccess) {
     return <div>error</div>;
   }
@@ -43,14 +35,21 @@ export const FilePreviewContent = ({ path, filename }: Props) => {
           </Button>
         </div>
       </div>
-      <SyntaxHighlighter
-        language={extension}
-        style={theme}
-        showLineNumbers
-        customStyle={{ maxHeight: "80vh", margin: 0 }}
-      >
-        {data}
-      </SyntaxHighlighter>
+      {isFetching ? (
+        <div className="flex flex-col items-center justify-center m-10">
+          <SpinnerCircular size={38} color="#000" />
+          <p className="mt-1 text-sm text-gray-500">Loading preview...</p>
+        </div>
+      ) : (
+        <SyntaxHighlighter
+          language={extension}
+          style={theme}
+          showLineNumbers
+          customStyle={{ maxHeight: "80vh", margin: 0 }}
+        >
+          {data}
+        </SyntaxHighlighter>
+      )}
     </div>
   );
 };

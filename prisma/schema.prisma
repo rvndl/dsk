@@ -8,11 +8,12 @@ datasource db {
 }
 
 model Share {
-  slug            String   @id @default(cuid())
-  name            String
-  path            String
-  downloads       Int      @default(0)
-  shared          Boolean  @default(false)
-  sharesRemaining Int      @default(0)
-  createdAt       DateTime @default(now())
+  slug      String    @id @default(cuid())
+  name      String
+  path      String
+  downloads Int       @default(0)
+  shared    Boolean   @default(false)
+  shares    Int?      @default(0)
+  expires   DateTime?
+  createdAt DateTime  @default(now())
 }
