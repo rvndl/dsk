@@ -1,7 +1,7 @@
-import NextAuth from "next-auth";
+import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-export default NextAuth({
+export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       name: "dsk",
@@ -36,4 +36,6 @@ export default NextAuth({
     },
   },
   secret: process.env.AUTH_SECRET,
-});
+};
+
+export default NextAuth(authOptions);
