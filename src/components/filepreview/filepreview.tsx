@@ -1,4 +1,3 @@
-import { Button } from "@components/button";
 import { FilePreviewContent } from "./filepreview-content";
 import { FilePreviewDownload } from "./filepreview-download";
 import { isText } from "istextorbinary";

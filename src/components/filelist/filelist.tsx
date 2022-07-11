@@ -13,7 +13,7 @@ interface Props {
 
 export const FileList = ({ files }: Props) => {
   const [pathString, setPathString] = useState("/");
-  const path = usePath();
+  const [path] = usePath();
 
   useEffect(() => {
     if (!path.length) return setPathString("/");
@@ -40,7 +40,7 @@ export const FileList = ({ files }: Props) => {
   return (
     <div>
       <FileListBreadcrumb />
-      <div className="w-full bg-white border rounded-lg border-slate-200">
+      <div className="w-full mt-2 bg-white border rounded-lg border-slate-200">
         <FileListHeader />
         {contents?.length ? (
           contents?.map((file) => (

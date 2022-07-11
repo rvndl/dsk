@@ -27,12 +27,12 @@ export const FilePreviewContent = ({ path, filename }: Props) => {
       <div className="flex p-2 border-b border-slate-200">
         <p className="text-lg font-semibold">{filename}</p>
         <div className="flex pl-8 ml-auto gap-x-2">
-          <Button className="flex items-center justify-center p-1 text-sm text-black border w-7 h-7 bg-slate-50 text-red border-slate-200 hover:bg-slate-100">
+          <button className="flex items-center justify-center p-1 text-sm text-black border rounded-md w-7 h-7 bg-slate-50 text-red border-slate-200 hover:bg-slate-100">
             <IconDuplicate />
-          </Button>
-          <Button className="flex items-center justify-center p-1 text-sm w-7 h-7">
+          </button>
+          <button className="flex items-center justify-center p-1 text-sm text-white bg-blue-600 rounded-md w-7 h-7">
             <IconDownload />
-          </Button>
+          </button>
         </div>
       </div>
       {isFetching ? (

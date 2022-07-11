@@ -15,5 +15,6 @@ export { IconTrash } from "./icon-trash";
 export { IconShare } from "./icon-share";
 export { IconDuplicate } from "./icon-duplicate";
 export { IconDownload } from "./icon-download";
+export { IconChevronRight } from "./icon-chevron-right";
 
 export { IconMatchExtension } from "./icon-match-extension";

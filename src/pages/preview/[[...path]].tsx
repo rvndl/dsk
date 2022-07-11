@@ -1,8 +1,8 @@
 import { FilePreview } from "@components/filepreview";
-import  { usePath } from "@hooks/usePath";
+import { usePath } from "@hooks/usePath";
 
 const Preview = () => {
-  const path = usePath();
+  const [path] = usePath();
 
   return (
     <div className="flex items-center justify-center w-full h-full">

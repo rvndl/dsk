@@ -1,28 +1,40 @@
-import { IconHome } from "@components/icon";
+import { IconChevronRight, IconHome } from "@components/icon";
 import { usePath } from "@hooks/usePath";
+import clsx from "clsx";
 import Link from "next/link";
 
 export const FileListBreadcrumb = () => {
-  const path = usePath();
+  const [path] = usePath();
 
   return (
-    <div className="flex py-1 my-2 bg-white border rounded-lg border-slate-200">
+    <div className="flex items-center p-2 bg-white border rounded-lg w-min">
       <Link href="/">
-        <div className="flex items-center justify-center px-1 mx-1 text-blue-700 transition-colors bg-blue-500 rounded-lg cursor-pointer bg-opacity-20 hover:bg-opacity-30">
+        <div className="flex items-center justify-center cursor-pointer bg-opacity-20 hover:bg-opacity-30">
           <IconHome />
         </div>
       </Link>
-      <div className="text-slate-400">/</div>
+      <div className="text-gray-300">
+        <IconChevronRight />
+      </div>
       {path.map((dir, idx) => (
         <Link
           href={(path && path.filter((_, id) => id < idx + 1).join("/")) || "/"}
           key={dir}
         >
-          <div className="flex">
-            <div className="px-1 mx-1 text-blue-700 transition-colors bg-blue-500 rounded-lg cursor-pointer bg-opacity-20 hover:bg-opacity-30">
+          <div className="flex items-center">
+            <div
+              className={clsx(
+                "mx-2 font-semibold text-gray-500 cursor-pointer text-sm",
+                { "text-sky-500": idx === path.length - 1 }
+              )}
+            >
               {dir}
             </div>
-            <p className="text-slate-400">/</p>
+            {idx !== path.length - 1 && (
+              <p className="font-bold text-gray-300">
+                <IconChevronRight />
+              </p>
+            )}
           </div>
         </Link>
       ))}

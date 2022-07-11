@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-export const usePath = () => {
+export const usePath = (): [string[], string] => {
   const [path, setPath] = useState<string[]>([]);
   const router = useRouter();
 
@@ -12,5 +12,5 @@ export const usePath = () => {
     setPath(path as string[]);
   }, [router]);
 
-  return path;
+  return [path, path.join("/")];
 };
