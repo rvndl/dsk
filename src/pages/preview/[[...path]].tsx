@@ -1,6 +1,5 @@
-import { Button } from "@components/button";
 import { FilePreview } from "@components/filepreview";
-import { usePath } from "@hooks/usePath";
+import  { usePath } from "@hooks/usePath";
 
 const Preview = () => {
   const path = usePath();
