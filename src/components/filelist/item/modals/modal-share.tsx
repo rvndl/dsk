@@ -1,29 +1,47 @@
-import { Menu, Transition } from "@headlessui/react";
-import { IconDots, IconShare, IconTrash } from "@components/icon";
-import { Fragment, SyntheticEvent, useState } from "react";
-import { trpc } from "@utils/trpc";
-import clsx from "clsx";
-import { Modal } from "@components/modal";
 import { Button } from "@components/button";
 import { Input } from "@components/input";
+import { Modal } from "@components/modal";
+import { trpc } from "@utils/trpc";
+import {
+  Dispatch,
+  SetStateAction,
+  SyntheticEvent,
+  useEffect,
+  useState,
+} from "react";
+import toast from "react-hot-toast";
 
 interface Props {
+  isOpen: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
   path: string;
   fileName: string;
 }
 
-export const FileListItemMenu = ({ path, fileName }: Props) => {
-  const [isOpen, setIsOpen] = useState(false);
+export const ShareModal = ({ path, fileName, isOpen, setOpen }: Props) => {
+  const [succeed, setSucceed] = useState(false);
   const [permanent, setPermanent] = useState(false);
   const [downloadLimit, setDownloadLimit] = useState(0);
   const [dateLimit, setDateLimit] = useState(0);
+  const [slug, setSlug] = useState("");
 
   const shareFile = trpc.useMutation(["share.share-file"], {
-    onError(error) {},
-    onSuccess(data) {
-      console.log(data);
+    onError(error) {
+      toast.error(error.message);
+    },
+    onSuccess(slug) {
+      toast.success("File shared successfully");
+
+      setSlug(slug);
+      setSucceed(true);
     },
   });
+
+  useEffect(() => {
+    // Switch back to sharing mode after the transition is done
+    const timeout = setTimeout(() => setSucceed(false), 300);
+    return () => clearTimeout(timeout);
+  }, [isOpen]);
 
   const handleOnSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
@@ -37,64 +55,34 @@ export const FileListItemMenu = ({ path, fileName }: Props) => {
   };
 
   return (
-    <div>
-      <Menu>
-        <Menu.Button className="flex justify-center w-full transition opacity-0 group-hover:opacity-100 text-black/40 hover:text-black">
-          <IconDots />
-        </Menu.Button>
-        <Transition
-          as={Fragment}
-          enter="transition ease-out duration-100"
-          enterFrom="transform opacity-0 scale-95"
-          enterTo="transform opacity-100 scale-100"
-          leave="transition ease-in duration-75"
-          leaveFrom="transform opacity-100 scale-100"
-          leaveTo="transform opacity-0 scale-95"
-        >
-          <Menu.Items className="absolute right-0 z-10 w-56 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-            <div className="px-1 py-1">
-              <Menu.Item>
-                {({ active }) => (
-                  <button
-                    className={clsx(
-                      "group flex w-full items-center rounded-md px-2 py-2 text-sm transition-colors",
-                      active && "bg-blue-500/20 text-blue-600"
-                    )}
-                    onClick={() => setIsOpen(true)}
-                  >
-                    <div className="w-5 h-5 mr-2">
-                      <IconShare />
-                    </div>
-                    Share
-                  </button>
-                )}
-              </Menu.Item>
+    <Modal isOpen={isOpen} setOpen={setOpen}>
+      <div className="w-full p-4">
+        <h2 className="text-lg font-semibold">Share file</h2>
+        {succeed ? (
+          <div className="mt-4">
+            <p className="text-sm text-gray-700">
+              File shared successfully. You can share it with the following
+              link:
+            </p>
+            <div className="mt-1">
+              <Input
+                value={`${window.location.origin}/share/${slug}`}
+                className="w-full"
+                readOnly
+                onFocus={(e) => e.target.select()}
+              />
             </div>
-            <div className="px-1 py-1">
-              <Menu.Item>
-                {({ active }) => (
-                  <button
-                    className={clsx(
-                      "group flex w-full items-center rounded-md px-2 py-2 text-sm transition-colors",
-                      active && "bg-red-500/20 text-red-600"
-                    )}
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <div className="w-5 h-5 mr-2 ">
-                      <IconTrash />
-                    </div>
-                    Delete
-                  </button>
-                )}
-              </Menu.Item>
+            <div className="flex justify-end w-full mt-4">
+              <Button
+                type="button"
+                variant="secondary"
+                onClick={() => setOpen(false)}
+              >
+                Close
+              </Button>
             </div>
-          </Menu.Items>
-        </Transition>
-      </Menu>
-      {/* TODO: Move modals to seperate files */}
-      <Modal isOpen={isOpen} setOpen={setIsOpen}>
-        <div className="w-full p-4">
-          <h2 className="text-lg font-semibold">Share file</h2>
+          </div>
+        ) : (
           <form className="flex-row w-full mt-4" onSubmit={handleOnSubmit}>
             <div className="relative flex items-start">
               <div className="flex items-center h-5">
@@ -141,7 +129,7 @@ export const FileListItemMenu = ({ path, fileName }: Props) => {
               </div>
               <div className="flex items-center">
                 <div className="w-2/5 text-sm font-medium text-gray-700">
-                  Date limit
+                  Expires
                 </div>
                 <Input
                   type="datetime-local"
@@ -154,15 +142,18 @@ export const FileListItemMenu = ({ path, fileName }: Props) => {
               <Button
                 type="button"
                 variant="secondary"
-                onClick={() => setIsOpen(false)}
+                onClick={() => setOpen(false)}
               >
                 Cancel
               </Button>
-              <Button type="submit">Share</Button>
+
+              <Button type="submit" isLoading={shareFile.isLoading}>
+                Share
+              </Button>
             </div>
           </form>
-        </div>
-      </Modal>
-    </div>
+        )}
+      </div>
+    </Modal>
   );
 };

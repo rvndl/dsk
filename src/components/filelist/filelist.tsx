@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { inferQueryResponse } from "@pages/api/trpc/[trpc]";
 import { FileListHeader } from "./filelist-header";
-import { FileListItem } from "./filelist-item";
 import { FileListBreadcrumb } from "./filelist-breadcrumb";
 import { usePath } from "@hooks/usePath";
+import { FileListItem } from "./item";
 
 type FilesType = inferQueryResponse<"file.get-all">;
 

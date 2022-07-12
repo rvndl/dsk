@@ -4,7 +4,7 @@ import { format } from "date-fns";
 import { humanFileSize } from "@utils/utils";
 import { IconFolder, IconMatchExtension } from "@components/icon";
 import { useEffect, useState } from "react";
-import { FileListItemMenu } from "./filelist-item-menu";
+import { FileListItemMenu } from "./item-menu";
 
 type FileType = inferQueryResponse<"file.get-all">[0];
 

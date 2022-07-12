@@ -34,6 +34,6 @@ export const share = router()
         },
       });
 
-      return share;
+      return share.slug;
     },
   });
