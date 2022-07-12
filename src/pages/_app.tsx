@@ -4,12 +4,12 @@ import {
   NextComponentType,
   NextPageContext,
 } from "next/dist/shared/lib/utils";
-import { AppRouter } from "./api/trpc/[trpc]";
 import { SessionProvider } from "next-auth/react";
 import "@styles/globals.css";
 import Auth from "@components/auth/auth";
 import { Layout } from "@components/layout";
 import Head from "next/head";
+import { AppRouter } from "@server/router";
 
 interface Props {
   Component: NextComponentType<NextPageContext, any, {}>;

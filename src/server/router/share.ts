@@ -1,6 +1,6 @@
 import { router } from "@trpc/server";
 import { z } from "zod";
-import { prisma } from "../../db/prisma";
+import { prisma } from "../db/prisma";
 
 export const share = router()
   .query("get-shared-file", {
