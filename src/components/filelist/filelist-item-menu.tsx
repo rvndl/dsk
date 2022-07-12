@@ -7,9 +7,12 @@ import { Modal } from "@components/modal";
 import { Button } from "@components/button";
 import { Input } from "@components/input";
 
-interface Props {}
+interface Props {
+  path: string;
+  fileName: string;
+}
 
-export const FileListItemMenu = ({}: Props) => {
+export const FileListItemMenu = ({ path, fileName }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [permanent, setPermanent] = useState(false);
   const [downloadLimit, setDownloadLimit] = useState(0);
@@ -22,10 +25,15 @@ export const FileListItemMenu = ({}: Props) => {
     },
   });
 
-  const handleOnShare = (e: SyntheticEvent) => {
-    e.stopPropagation();
+  const handleOnSubmit = (e: SyntheticEvent) => {
+    e.preventDefault();
 
-    shareFile.mutate({ path: "/", limits: { shares: 10 } });
+    const filePath = path === "/" ? fileName : `${path}/${fileName}`;
+
+    shareFile.mutate({
+      path: filePath,
+      limits: { shares: downloadLimit, expires: dateLimit, permanent },
+    });
   };
 
   return (
@@ -83,11 +91,11 @@ export const FileListItemMenu = ({}: Props) => {
           </Menu.Items>
         </Transition>
       </Menu>
-
+      {/* TODO: Move modals to seperate files */}
       <Modal isOpen={isOpen} setOpen={setIsOpen}>
         <div className="w-full p-4">
           <h2 className="text-lg font-semibold">Share file</h2>
-          <div className="flex-row w-full mt-4">
+          <form className="flex-row w-full mt-4" onSubmit={handleOnSubmit}>
             <div className="relative flex items-start">
               <div className="flex items-center h-5">
                 <input
@@ -143,10 +151,16 @@ export const FileListItemMenu = ({}: Props) => {
               </div>
             </div>
             <div className="flex flex-row justify-end mt-8 ml-auto gap-x-2">
-              <Button variant="secondary">Cancel</Button>
-              <Button>Share</Button>
+              <Button
+                type="button"
+                variant="secondary"
+                onClick={() => setIsOpen(false)}
+              >
+                Cancel
+              </Button>
+              <Button type="submit">Share</Button>
             </div>
-          </div>
+          </form>
         </div>
       </Modal>
     </div>

@@ -15,19 +15,21 @@ export const share = router()
     input: z.object({
       path: z.string(),
       limits: z.object({
-        shares: z.number().optional(),
-        expires: z.string().optional(),
+        shares: z.number().min(0).optional(),
+        expires: z.number().optional(),
+        permanent: z.boolean().default(false).optional(),
       }),
     }),
     async resolve({ input }) {
-      const { shares, expires } = input.limits;
+      const { shares, expires, permanent } = input.limits;
 
       const share = await prisma.share.create({
         data: {
           name: "todo",
           path: input.path,
-          shared: true,
-          expires,
+          active: true,
+          permanent,
+          expires: new Date(expires || 0),
           shares,
         },
       });

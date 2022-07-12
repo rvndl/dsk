@@ -12,7 +12,8 @@ model Share {
   name      String
   path      String
   downloads Int       @default(0)
-  shared    Boolean   @default(false)
+  permanent Boolean   @default(false)
+  active    Boolean   @default(false)
   shares    Int?      @default(0)
   expires   DateTime?
   createdAt DateTime  @default(now())

@@ -42,7 +42,7 @@ export const FileListItem = ({ file, path }: Props) => {
       <div className="flex w-1/3">
         <p>{file.type === "file" && humanFileSize(file.size)}</p>
         <div className="relative ml-auto">
-          <FileListItemMenu />
+          <FileListItemMenu path={path} fileName={file.name} />
         </div>
       </div>
     </div>

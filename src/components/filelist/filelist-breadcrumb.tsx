@@ -24,7 +24,7 @@ export const FileListBreadcrumb = () => {
           <div className="flex items-center">
             <div
               className={clsx(
-                "mx-2 font-semibold text-gray-500 cursor-pointer text-sm",
+                "mx-2 font-semibold text-gray-500 cursor-pointer text-sm truncate max-w-[14rem]",
                 { "text-sky-500": idx === path.length - 1 }
               )}
             >
