@@ -52,7 +52,7 @@ const Home = () => {
         <Input
           type="password"
           placeholder="Enter a password"
-          className="w-full h-10 mx-2 outline-none"
+          className="w-full h-10 border-none shadow-none outline-none"
           name="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}

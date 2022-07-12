@@ -1,19 +1,22 @@
 import { Button } from "@components/button";
 import { IconLogout } from "@components/icon";
 
-import Image from "next/image";
+import Image from "next/future/image";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 
 export const Navbar = () => {
   return (
-    <nav className="flex items-center justify-between h-12 p-2 bg-white border-b border-slate-200">
+    <nav className="flex items-center justify-between h-auto p-2 bg-white border-b border-slate-200">
       <div className="flex items-center">
         <Link href="/">
-          <div className="flex items-center cursor-pointer select-none">
-            <Image src="/logo.svg" height={30} width={30} alt="logo" />
-            <p className="ml-2 font-bold">dsk</p>
-          </div>
+          <Image
+            src="/logo.png"
+            height={69}
+            width={134}
+            alt="logo"
+            className="w-auto h-10 cursor-pointer select-none"
+          />
         </Link>
       </div>
       <Button className="px-3 py-1 font-medium text-blue-700 bg-blue-500 rounded-lg bg-opacity-20 hover:bg-opacity-25">
