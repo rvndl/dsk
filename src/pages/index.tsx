@@ -57,7 +57,7 @@ const Home = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <Button className="p-2" isLoading={isLoading}>
+        <Button className="p-2 shadow-none" isLoading={isLoading}>
           Login
         </Button>
       </form>

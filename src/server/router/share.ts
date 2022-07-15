@@ -3,11 +3,19 @@ import { z } from "zod";
 import { prisma } from "../db/prisma";
 
 export const share = router()
-  .query("get-shared-file", {
+  .query("preview-shared-file", {
     input: z.object({
       slug: z.string().length(25),
     }),
     async resolve({ input }) {
+      return true;
+    },
+  })
+  .query("download-shared-file", {
+    input: z.object({
+      slug: z.string().length(25),
+    }),
+    resolve({ input }) {
       return true;
     },
   })

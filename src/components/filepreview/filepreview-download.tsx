@@ -20,7 +20,9 @@ export const FilePreviewDownload = ({ path, filename }: Props) => {
         <p className="">
           {filename} - {humanFileSize(data?.size || 0)}
         </p>
-        <Button className="px-2 py-0.5 text-sm w-min">Download</Button>
+        <Button className="px-2 py-0.5 text-sm w-min bg-blue-600 hover:bg-blue-700">
+          Download
+        </Button>
       </div>
     </div>
   );

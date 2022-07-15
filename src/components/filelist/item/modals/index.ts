@@ -1,2 +1,2 @@
 export { ShareModal } from "./modal-share";
-export { RenameModal } from "./modal-rename";
+export { ModalDelete } from "./modal-delete";
