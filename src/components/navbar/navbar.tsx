@@ -19,7 +19,7 @@ export const Navbar = () => {
   const isAuthenticated = status !== "unauthenticated";
 
   return (
-    <nav className="flex items-center justify-between h-auto p-2 bg-white border-b border-slate-200">
+    <nav className="flex items-center justify-between h-16 p-2 bg-white border-b border-slate-200">
       <div className="flex items-center">
         <Link href="/">
           <>

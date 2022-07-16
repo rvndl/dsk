@@ -11,7 +11,7 @@ export const FilePreview = ({ path }: Props) => {
   const previewable = isText(filename);
 
   return (
-    <div>
+    <div className="w-full max-w-3xl md:w-auto">
       {previewable ? (
         <FilePreviewContent path={path} filename={filename} />
       ) : (

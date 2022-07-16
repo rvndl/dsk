@@ -13,6 +13,8 @@ export const FilePreviewDownload = ({ path, filename }: Props) => {
     { refetchOnWindowFocus: false }
   );
 
+  const handleOnDownload = async () => {};
+
   return (
     <div className="flex flex-col items-center p-4 bg-white border rounded-lg border-slate-200">
       <h2 className="font-semibold">This file cannot be previewed</h2>
@@ -20,7 +22,10 @@ export const FilePreviewDownload = ({ path, filename }: Props) => {
         <p className="">
           {filename} - {humanFileSize(data?.size || 0)}
         </p>
-        <Button className="px-2 py-0.5 text-sm w-min bg-blue-600 hover:bg-blue-700">
+        <Button
+          className="px-2 py-0.5 text-sm w-min bg-blue-600 hover:bg-blue-700"
+          onClick={handleOnDownload}
+        >
           Download
         </Button>
       </div>

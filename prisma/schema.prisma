@@ -7,14 +7,24 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Share {
-  slug      String    @id @default(cuid())
+model File {
+  id        String   @id @default(cuid())
   name      String
+  size      Int
   path      String
+  createdAt DateTime @default(now())
+
+  share Share?
+}
+
+model Share {
+  id        String    @id @default(cuid())
   downloads Int       @default(0)
   permanent Boolean   @default(false)
   active    Boolean   @default(false)
   shares    Int?      @default(0)
   expires   DateTime?
-  createdAt DateTime  @default(now())
+
+  fileId String @unique
+  file   File?  @relation(fields: [fileId], references: [id])
 }

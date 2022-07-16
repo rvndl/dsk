@@ -38,18 +38,15 @@ export const FileList = ({ files }: Props) => {
   );
 
   return (
-    <div>
-      <FileListBreadcrumb />
-      <div className="w-full mt-2 bg-white border rounded-lg border-slate-200">
-        <FileListHeader />
-        {contents?.length ? (
-          contents?.map((file) => (
-            <FileListItem key={file.name} path={pathString} file={file} />
-          ))
-        ) : (
-          <p className="py-4 text-center text-black/50">Empty.</p>
-        )}
-      </div>
+    <div className="w-full mt-2 bg-white border rounded-lg border-slate-200">
+      <FileListHeader />
+      {contents?.length ? (
+        contents?.map((file) => (
+          <FileListItem key={file.name} path={pathString} file={file} />
+        ))
+      ) : (
+        <p className="py-4 text-center text-black/50">Empty.</p>
+      )}
     </div>
   );
 };

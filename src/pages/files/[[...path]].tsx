@@ -1,8 +1,14 @@
-import { FileList } from "@components/filelist";
+import { Button } from "@components/button";
+import { FileUpload } from "@components/file-upload";
+import { FileList, FileListBreadcrumb } from "@components/filelist";
 import { IconX } from "@components/icon";
+import { Modal } from "@components/modal";
 import { trpc } from "@utils/trpc";
+import { useState } from "react";
+import { useDropzone } from "react-dropzone";
 
 const Files = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const { data, error } = trpc.useQuery(["file.get-all"]);
 
   if (error) {
@@ -20,6 +26,12 @@ const Files = () => {
 
   return (
     <div className="w-full pt-10 mx-auto lg:w-4/5 xl:w-3/5">
+      <div className="flex items-center w-full mb-2">
+        <FileListBreadcrumb />
+        <div className="ml-auto shrink-0">
+          <FileUpload path={[]} />
+        </div>
+      </div>
       <FileList files={data} />
     </div>
   );
