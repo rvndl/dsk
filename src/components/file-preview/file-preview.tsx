@@ -1,5 +1,5 @@
-import { FilePreviewContent } from "./filepreview-content";
-import { FilePreviewDownload } from "./filepreview-download";
+import { FilePreviewContent } from "./file-preview-content";
+import { FilePreviewDownload } from "./file-preview-download";
 import { isText } from "istextorbinary";
 
 interface Props {

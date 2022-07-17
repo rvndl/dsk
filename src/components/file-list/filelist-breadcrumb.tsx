@@ -1,11 +1,12 @@
 import { IconChevronRight, IconHome } from "@components/icon";
-import { usePath } from "@hooks/usePath";
 import clsx from "clsx";
 import Link from "next/link";
 
-export const FileListBreadcrumb = () => {
-  const [path] = usePath();
+interface Props {
+  path: string[];
+}
 
+export const FileListBreadcrumb = ({ path }: Props) => {
   return (
     <div className="flex items-center p-2 bg-white border rounded-lg w-min">
       <Link href="/">

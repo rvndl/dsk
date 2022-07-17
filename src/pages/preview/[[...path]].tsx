@@ -1,4 +1,4 @@
-import { FilePreview } from "@components/filepreview";
+import { FilePreview } from "@components/file-preview";
 import { usePath } from "@hooks/usePath";
 
 const Preview = () => {

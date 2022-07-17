@@ -1,19 +1,17 @@
 import { useEffect, useMemo, useState } from "react";
 import { inferQueryResponse } from "@pages/api/trpc/[trpc]";
 import { FileListHeader } from "./filelist-header";
-import { FileListBreadcrumb } from "./filelist-breadcrumb";
-import { usePath } from "@hooks/usePath";
 import { FileListItem } from "./item";
 
 type FilesType = inferQueryResponse<"file.get-all">;
 
 interface Props {
   files: FilesType | undefined;
+  path: string[];
 }
 
-export const FileList = ({ files }: Props) => {
+export const FileList = ({ files, path }: Props) => {
   const [pathString, setPathString] = useState("/");
-  const [path] = usePath();
 
   useEffect(() => {
     if (!path.length) return setPathString("/");

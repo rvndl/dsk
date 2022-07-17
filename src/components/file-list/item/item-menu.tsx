@@ -67,7 +67,7 @@ export const FileListItemMenu = ({ path, fileName }: Props) => {
           </Menu.Items>
         </Transition>
       </Menu>
-      {/* TODO: Move modals to seperate files */}
+
       <ShareModal
         path={path}
         fileName={fileName}

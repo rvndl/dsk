@@ -1,4 +1,3 @@
-import { Button } from "@components/button";
 import { IconDownload, IconDuplicate } from "@components/icon";
 import { trpc } from "@utils/trpc";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";

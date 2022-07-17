@@ -1,14 +1,11 @@
-import { Button } from "@components/button";
 import { FileUpload } from "@components/file-upload";
-import { FileList, FileListBreadcrumb } from "@components/filelist";
+import { FileList, FileListBreadcrumb } from "@components/file-list";
 import { IconX } from "@components/icon";
-import { Modal } from "@components/modal";
 import { trpc } from "@utils/trpc";
-import { useState } from "react";
-import { useDropzone } from "react-dropzone";
+import { usePath } from "@hooks/usePath";
 
 const Files = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [path] = usePath();
   const { data, error } = trpc.useQuery(["file.get-all"]);
 
   if (error) {
@@ -27,12 +24,12 @@ const Files = () => {
   return (
     <div className="w-full pt-10 mx-auto lg:w-4/5 xl:w-3/5">
       <div className="flex items-center w-full mb-2">
-        <FileListBreadcrumb />
+        <FileListBreadcrumb path={path} />
         <div className="ml-auto shrink-0">
-          <FileUpload path={[]} />
+          <FileUpload path={path} />
         </div>
       </div>
-      <FileList files={data} />
+      <FileList path={path} files={data} />
     </div>
   );
 };

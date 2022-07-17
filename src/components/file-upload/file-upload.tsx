@@ -1,7 +1,7 @@
 import { Button } from "@components/button";
 import { IconDocument } from "@components/icon";
 import { Modal } from "@components/modal";
-import { useUploadsStore } from "@store/uploads";
+import { useTransferStore } from "@store/transfer";
 import { trpc } from "@utils/trpc";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -19,22 +19,21 @@ export const FileUpload = ({ path }: Props) => {
       setFiles(acceptedFiles);
     },
   });
-  const updateFile = useUploadsStore(({ updateFile }) => updateFile);
+  const updateFile = useTransferStore(({ updateFile }) => updateFile);
   const trpcContext = trpc.useContext();
 
   const handleOnUpload = async () => {
-    const fileUploaders = files.map(async (file) => {
+    const fileUploaders = files.map((file) => {
       const formData = new FormData();
-      formData.append("directory", "/");
+      formData.append("directory", `${path.join("/")}/`);
       formData.append("file", file);
 
       return axios.post("http://localhost:3000/api/upload", formData, {
         onUploadProgress(progressEvent) {
-          const percentCompleted = Math.round(
-            (progressEvent.loaded * 100) / progressEvent.total
-          );
+          const percentCompleted =
+            (progressEvent.loaded * 100) / progressEvent.total;
 
-          updateFile(file.name, percentCompleted);
+          updateFile(file.name, percentCompleted, "upload");
         },
       });
     });

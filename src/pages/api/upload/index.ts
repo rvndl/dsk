@@ -21,11 +21,11 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  // const session = await getServerSession({ req, res }, authOptions);
-  // if (!session) {
-  //   res.status(401).json({ message: "Unauthorized" });
-  //   return;
-  // }
+  const session = await getServerSession({ req, res }, authOptions);
+  if (!session) {
+    res.status(401).json({ message: "Unauthorized" });
+    return;
+  }
 
   const form = await new Promise<FormResults | undefined>((resolve, reject) => {
     let response: FormResults = { files: [], directory: "" };
@@ -49,6 +49,9 @@ export default async function handler(
 
     form.on("error", (err) => reject(err));
     form.on("end", () => resolve(response));
+  }).catch((err) => {
+    res.status(400).json({ message: err.message });
+    return;
   });
 
   if (!form?.files) {
@@ -56,7 +59,7 @@ export default async function handler(
     return;
   }
 
-  const target = path.join(process.cwd(), "/uploads/");
+  const target = path.join(process.cwd(), "/uploads/" + form.directory);
   await Promise.all(
     form.files.map(async ([, file]) => {
       const tempPath = file.filepath;
