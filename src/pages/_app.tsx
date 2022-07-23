@@ -41,7 +41,7 @@ const MyApp: AppType = ({
 };
 
 export default withTRPC<AppRouter>({
-  config({ ctx }) {
+  config() {
     const url = "http://localhost:3000/api/trpc";
 
     return {

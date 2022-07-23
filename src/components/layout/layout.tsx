@@ -1,10 +1,15 @@
 import { FileProgress } from "@components/file-progress";
 import { Navbar } from "@components/navbar";
+import { ReactNode } from "react";
 import { Toaster } from "react-hot-toast";
 
-export const Layout = ({ children }: any) => {
+interface Props {
+  children: ReactNode;
+}
+
+export const Layout = ({ children }: Props) => {
   return (
-    <div className="">
+    <div>
       <Toaster />
       <Navbar />
       <main className="main">{children}</main>

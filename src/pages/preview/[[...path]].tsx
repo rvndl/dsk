@@ -1,5 +1,5 @@
 import { FilePreview } from "@components/file-preview";
-import { usePath } from "@hooks/usePath";
+import { usePath } from "@hooks/use-path";
 
 const Preview = () => {
   const [path] = usePath();

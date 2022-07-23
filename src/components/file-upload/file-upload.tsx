@@ -1,6 +1,6 @@
-import { Button } from "@components/button";
 import { IconDocument } from "@components/icon";
 import { Modal } from "@components/modal";
+import { Button } from "@components/ui";
 import { useTransferStore } from "@store/transfer";
 import { trpc } from "@utils/trpc";
 import axios from "axios";

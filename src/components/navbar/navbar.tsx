@@ -3,9 +3,9 @@ import { IconLogout } from "@components/icon";
 import Image from "next/future/image";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import { Button } from "@components/button";
 import { useRouter } from "next/router";
 import clsx from "clsx";
+import { Button } from "@components/ui";
 
 const navigation = [
   { name: "Files", to: "/files" },

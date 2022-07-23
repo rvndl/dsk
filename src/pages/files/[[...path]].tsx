@@ -2,7 +2,7 @@ import { FileUpload } from "@components/file-upload";
 import { FileList, FileListBreadcrumb } from "@components/file-list";
 import { IconX } from "@components/icon";
 import { trpc } from "@utils/trpc";
-import { usePath } from "@hooks/usePath";
+import { usePath } from "@hooks/use-path";
 
 const Files = () => {
   const [path] = usePath();

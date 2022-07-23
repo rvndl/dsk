@@ -1,5 +1,5 @@
 import { IconCircleDown } from "@components/icon";
-import { Progressbar } from "@components/progressbar";
+import { Progressbar } from "@components/ui";
 import clsx from "clsx";
 
 interface Props {

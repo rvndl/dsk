@@ -1,4 +1,4 @@
-import { Button } from "@components/button";
+import { Button } from "@components/ui";
 import { trpc } from "@utils/trpc";
 import { humanFileSize } from "@utils/utils";
 

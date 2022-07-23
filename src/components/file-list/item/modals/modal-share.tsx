@@ -1,6 +1,5 @@
-import { Button } from "@components/button";
-import { Input } from "@components/input";
 import { Modal } from "@components/modal";
+import { Button, Input } from "@components/ui";
 import { trpc } from "@utils/trpc";
 import {
   Dispatch,
