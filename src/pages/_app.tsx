@@ -42,7 +42,7 @@ const MyApp: AppType = ({
 
 export default withTRPC<AppRouter>({
   config() {
-    const url = "http://localhost:3000/api/trpc";
+    const url = `${process.env.NEXT_PUBLIC_HOST}/api/trpc`;
 
     return {
       url,

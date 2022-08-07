@@ -28,14 +28,18 @@ export const FileUpload = ({ path }: Props) => {
       formData.append("directory", `${path.join("/")}/`);
       formData.append("file", file);
 
-      return axios.post("http://localhost:3000/api/upload", formData, {
-        onUploadProgress(progressEvent) {
-          const percentCompleted =
-            (progressEvent.loaded * 100) / progressEvent.total;
+      return axios.post(
+        `${process.env.NEXT_PUBLIC_HOST}/api/upload`,
+        formData,
+        {
+          onUploadProgress(progressEvent) {
+            const percentCompleted =
+              (progressEvent.loaded * 100) / progressEvent.total;
 
-          updateFile(file.name, percentCompleted, "upload");
-        },
-      });
+            updateFile(file.name, percentCompleted, "upload");
+          },
+        }
+      );
     });
 
     setIsOpen(false);
