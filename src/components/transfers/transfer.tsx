@@ -8,7 +8,7 @@ interface Props {
   type: "upload" | "download";
 }
 
-export const FileProgressItem = ({ name, percentage, type }: Props) => (
+export const Transfer = ({ name, percentage, type }: Props) => (
   <div
     className="flex items-center justify-between w-full px-2 py-1 border-b border-b-gray-300"
     key={name}

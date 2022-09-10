@@ -49,7 +49,7 @@ export const ShareModal = ({ path, fileName, isOpen, setOpen }: Props) => {
 
     shareFile.mutate({
       path: filePath,
-      limits: { shares: downloadLimit, expires: dateLimit, permanent },
+      limits: { downloadLimit, expires: dateLimit, permanent },
     });
   };
 

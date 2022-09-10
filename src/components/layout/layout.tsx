@@ -1,4 +1,4 @@
-import { FileProgress } from "@components/file-progress";
+import { Transfers } from "@components/transfers";
 import { Navbar } from "@components/navbar";
 import { ReactNode } from "react";
 import { Toaster } from "react-hot-toast";
@@ -13,7 +13,7 @@ export const Layout = ({ children }: Props) => {
       <Toaster />
       <Navbar />
       <main className="main">{children}</main>
-      <FileProgress />
+      <Transfers />
     </div>
   );
 };

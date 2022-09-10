@@ -10,7 +10,7 @@ export interface FileInfo {
   modified: Date;
 }
 
-export const readDirectory = (dir: string) => {
+export function readDirectory(dir: string) {
   const results: FileInfo[] = [];
 
   const traverseDir = (dir: string) => {
@@ -51,4 +51,11 @@ export const readDirectory = (dir: string) => {
   traverseDir(dir);
 
   return results;
-};
+}
+
+export function getFilePath(relativePath: string) {
+  const uploadsDirectory = path.join(process.cwd(), "uploads");
+  const filePath = path.join(uploadsDirectory, relativePath);
+
+  return filePath;
+}

@@ -1,9 +1,9 @@
 import { router, TRPCError } from "@trpc/server";
 import { Context } from "./context";
 
-export const createRouter = () =>
+export const protectedRouter = () =>
   router<Context>().middleware(({ ctx, next }) => {
-    if (!ctx.session?.loggedIn) {
+    if (!ctx.session) {
       throw new TRPCError({ code: "UNAUTHORIZED" });
     }
 

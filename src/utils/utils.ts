@@ -1,3 +1,5 @@
+import { inferQueryResponse } from "@pages/api/trpc/[trpc]";
+
 export function humanFileSize(bytes: number, si = false, dp = 1) {
   const thresh = si ? 1000 : 1024;
 
@@ -20,4 +22,19 @@ export function humanFileSize(bytes: number, si = false, dp = 1) {
   );
 
   return bytes.toFixed(dp) + " " + units[u];
+}
+
+export function checkShareExpiry(
+  share: inferQueryResponse<"share.get-all">[0]
+) {
+  if (share.permanent) return false;
+  if (share.downloadLimit === -1) {
+    if (share.expires && new Date(share.expires).getTime() < Date.now())
+      return true;
+
+    return false;
+  }
+
+  if (share.downloads >= share.downloadLimit) return true;
+  return false;
 }

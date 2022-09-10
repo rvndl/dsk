@@ -9,6 +9,7 @@ datasource db {
 
 model File {
   id        String   @id @default(cuid())
+  inode     String   @unique
   name      String
   size      Int
   path      String
@@ -18,13 +19,12 @@ model File {
 }
 
 model Share {
-  id        String    @id @default(cuid())
-  downloads Int       @default(0)
-  permanent Boolean   @default(false)
-  active    Boolean   @default(false)
-  shares    Int?      @default(0)
-  expires   DateTime?
+  id            String    @id @default(cuid())
+  downloads     Int       @default(0)
+  permanent     Boolean   @default(false)
+  downloadLimit Int       @default(-1)
+  expires       DateTime?
 
-  fileId String @unique
-  file   File?  @relation(fields: [fileId], references: [id])
+  fileInode String @unique
+  file      File?  @relation(fields: [fileInode], references: [inode])
 }

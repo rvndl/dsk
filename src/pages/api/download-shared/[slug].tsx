@@ -1,9 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../auth/[...nextauth]";
 import { prisma } from "@server/db/prisma";
-import path from "path";
 import * as fs from "fs";
+import { checkShareExpiry } from "@utils/utils";
 import { getFilePath } from "@server/lib/file";
 
 export default async function handler(
@@ -16,22 +14,35 @@ export default async function handler(
     return;
   }
 
-  const session = await getServerSession({ req, res }, authOptions);
-  if (!session) {
-    res.status(401).json({ error: "Unauthorized" });
+  const share = await prisma.share.findFirst({
+    where: { id: slug },
+    include: { file: true },
+  });
+  if (!share) {
+    res.status(404).json({ error: "Share not found" });
     return;
   }
 
-  const file = await prisma.file.findFirst({ where: { id: slug } });
-  if (!file) {
+  const expired = checkShareExpiry(share);
+  if (expired) {
+    res.status(404).json({ error: "Share expired" });
+    return;
+  }
+
+  if (!share.file) {
     res.status(404).json({ error: "File not found" });
     return;
   }
 
-  const filePath = getFilePath(file.path);
+  await prisma.share.update({
+    data: { downloads: share.downloads + 1 },
+    where: { id: share.id },
+  });
+
+  const filePath = getFilePath(share.file.path);
   const readStream = fs.createReadStream(filePath);
 
-  res.setHeader("Content-Length", file.size);
+  res.setHeader("Content-Length", share.file.size);
 
   await new Promise((resolve, reject) => {
     readStream.pipe(res);

@@ -4,7 +4,7 @@ import { authOptions } from "../auth/[...nextauth]";
 import formidable, { File } from "formidable";
 import * as path from "path";
 import * as fs from "fs";
-import { prisma } from "../../../server/db/prisma";
+import { prisma } from "@server/db/prisma";
 
 export const config = {
   api: {
@@ -61,16 +61,27 @@ export default async function handler(
 
   const target = path.join(process.cwd(), "/uploads/" + form.directory);
   await Promise.all(
-    form.files.map(async ([, file]) => {
+    form.files.map(([, file]) => {
       const tempPath = file.filepath;
 
-      await fs.rename(tempPath, `${target}${file.originalFilename}`, () => {});
-      await prisma.file.create({
-        data: {
-          name: file.originalFilename || "unknown",
-          path: `${target}${file.originalFilename}`,
-          size: file.size,
-        },
+      const targetName = `${target}${file.originalFilename}`;
+
+      fs.rename(tempPath, targetName, async (err) => {
+        if (err) {
+          console.error(err);
+          return;
+        }
+
+        const { ino } = fs.lstatSync(targetName);
+
+        await prisma.file.create({
+          data: {
+            inode: ino + "",
+            name: file.originalFilename || "unknown",
+            path: form.directory + file.originalFilename,
+            size: file.size,
+          },
+        });
       });
     })
   );

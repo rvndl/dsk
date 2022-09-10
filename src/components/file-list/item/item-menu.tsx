@@ -3,6 +3,7 @@ import { IconDots, IconShare, IconTrash } from "@components/icon";
 import { Fragment, useState } from "react";
 import clsx from "clsx";
 import { ShareModal } from "./modals";
+import { DeleteModal } from "./modals/modal-delete";
 
 interface Props {
   path: string;
@@ -10,7 +11,8 @@ interface Props {
 }
 
 export const FileListItemMenu = ({ path, fileName }: Props) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isShareOpen, setIsShareOpen] = useState(false);
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
   return (
     <div>
@@ -36,7 +38,7 @@ export const FileListItemMenu = ({ path, fileName }: Props) => {
                       "group flex w-full items-center rounded-md px-2 py-2 text-sm transition-colors",
                       active && "bg-blue-500/20 text-blue-600"
                     )}
-                    onClick={() => setIsOpen(true)}
+                    onClick={() => setIsShareOpen(true)}
                   >
                     <div className="w-5 h-5 mr-2">
                       <IconShare />
@@ -54,7 +56,7 @@ export const FileListItemMenu = ({ path, fileName }: Props) => {
                       "group flex w-full items-center rounded-md px-2 py-2 text-sm transition-colors",
                       active && "bg-red-500/20 text-red-600"
                     )}
-                    onClick={(e) => e.stopPropagation()}
+                    onClick={() => setIsDeleteOpen(true)}
                   >
                     <div className="w-5 h-5 mr-2 ">
                       <IconTrash />
@@ -71,8 +73,14 @@ export const FileListItemMenu = ({ path, fileName }: Props) => {
       <ShareModal
         path={path}
         fileName={fileName}
-        isOpen={isOpen}
-        setOpen={setIsOpen}
+        isOpen={isShareOpen}
+        setOpen={setIsShareOpen}
+      />
+
+      <DeleteModal
+        fileName={fileName}
+        isOpen={isDeleteOpen}
+        setOpen={setIsDeleteOpen}
       />
     </div>
   );
