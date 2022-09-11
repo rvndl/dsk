@@ -2,6 +2,7 @@ import { Error } from "@components/error";
 import { IconDownload, IconDuplicate } from "@components/icon";
 import { useDownload } from "@hooks/use-download";
 import { trpc } from "@utils/trpc";
+import toast from "react-hot-toast";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { dracula as theme } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import { SpinnerCircular } from "spinners-react";
@@ -44,12 +45,20 @@ export const FilePreviewContent = ({ path, fileName, shareId }: Props) => {
     download(fileName, fileId);
   };
 
+  const handleOnCopy = () => {
+    navigator.clipboard.writeText(data);
+    toast.success("Content copied to clipboard");
+  };
+
   return (
     <div className="p-2 bg-white border contaienr border-slate-200 rounded-xl">
       <div className="flex p-2 border-b border-slate-200">
         <p className="text-lg font-semibold">{fileName}</p>
         <div className="flex pl-8 ml-auto gap-x-2">
-          <button className="flex items-center justify-center p-1 text-sm text-black border rounded-md w-7 h-7 bg-slate-50 text-red border-slate-200 hover:bg-slate-100">
+          <button
+            className="flex items-center justify-center p-1 text-sm text-black border rounded-md w-7 h-7 bg-slate-50 text-red border-slate-200 hover:bg-slate-100"
+            onClick={handleOnCopy}
+          >
             <IconDuplicate />
           </button>
           <button

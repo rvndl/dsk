@@ -12,6 +12,24 @@ export const share = protectedRouter()
       return shares;
     },
   })
+  .query("get-statiscs", {
+    async resolve() {
+      const [shares, fileCount] = await Promise.all([
+        prisma.share.findMany(),
+        prisma.file.count(),
+      ]);
+
+      const downloadCount = shares.reduce((acc, share) => {
+        return acc + share.downloads;
+      }, 0);
+
+      return {
+        fileCount,
+        downloadCount,
+        shareCount: shares.length,
+      };
+    },
+  })
   .mutation("share-file", {
     input: z.object({
       path: z.string(),

@@ -1,6 +1,8 @@
 import { ShareList } from "@components/share-list";
+import { ShareStats } from "@components/share-stats";
 import { Pagination } from "@components/ui";
 import { trpc } from "@utils/trpc";
+import { checkShareExpiry } from "@utils/utils";
 import { useMemo, useState } from "react";
 
 const Dashboard = () => {
@@ -10,7 +12,15 @@ const Dashboard = () => {
   const shares = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * 10;
     const lastPageIndex = firstPageIndex + 10;
-    return data?.slice(firstPageIndex, lastPageIndex);
+
+    const sorted = data?.sort((a, b) => {
+      if (checkShareExpiry(a)) return 1;
+      if (checkShareExpiry(b)) return -1;
+
+      return 0;
+    });
+
+    return sorted?.slice(firstPageIndex, lastPageIndex);
   }, [data, currentPage]);
 
   if (isLoading || !shares) {
@@ -18,8 +28,9 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="w-full pt-10 mx-auto lg:w-4/5 xl:w-3/5">
-      <div className="flex items-center w-full mb-2">
+    <div className="w-full py-4 mx-auto lg:w-4/5 xl:w-3/5">
+      <ShareStats />
+      <div className="flex items-center w-full mt-6">
         <div className="flex flex-col w-full">
           <ShareList shares={shares} />
         </div>
