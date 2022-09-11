@@ -1,6 +1,6 @@
 import { useSession } from "next-auth/react";
 
-const Auth = ({ children }: { children: any }) => {
+export const Auth = ({ children }: { children: any }) => {
   const { status } = useSession({ required: true });
 
   if (status === "loading") {
@@ -9,5 +9,3 @@ const Auth = ({ children }: { children: any }) => {
 
   return children;
 };
-
-export default Auth;

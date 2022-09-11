@@ -6,10 +6,10 @@ import {
 } from "next/dist/shared/lib/utils";
 import { SessionProvider } from "next-auth/react";
 import "@styles/globals.css";
-import Auth from "@components/auth/auth";
 import { Layout } from "@components/layout";
 import Head from "next/head";
 import { AppRouter } from "@server/router";
+import { Auth } from "@components/auth";
 
 interface Props {
   Component: NextComponentType<NextPageContext, any, {}>;
