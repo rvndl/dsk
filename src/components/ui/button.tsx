@@ -16,9 +16,10 @@ export const Button = ({
   ...rest
 }: Props) => {
   const classes = clsx(
-    "inline-flex items-center px-3 py-2 border text-sm leading-4 font-medium rounded shadow-md text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500",
+    "inline-flex items-center px-3 py-2 border text-sm leading-4 font-medium rounded shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500",
     {
-      "bg-sky-600 hover:bg-sky-700 border-transparent": variant === "primary",
+      "bg-sky-600 hover:bg-sky-700 border-transparent text-white":
+        variant === "primary",
     },
     {
       "text-gray-700 bg-white hover:bg-gray-50 border-gray-300":

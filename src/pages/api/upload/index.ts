@@ -30,7 +30,9 @@ export default async function handler(
   const form = await new Promise<FormResults | undefined>((resolve, reject) => {
     let response: FormResults = { files: [], directory: "" };
 
-    const form = new formidable.IncomingForm();
+    const form = new formidable.IncomingForm({
+      maxFileSize: 100 * 1024 * 1024 * 1024,
+    });
     form.parse(req, (err, { directory }) => {
       if (err) {
         reject(err);
