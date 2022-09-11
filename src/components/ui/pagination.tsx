@@ -25,7 +25,6 @@ export const Pagination = ({
   });
 
   const rangeLength = range?.length || 0;
-
   if (currentPage === 0 || rangeLength < 2) {
     return null;
   }
@@ -37,6 +36,7 @@ export const Pagination = ({
 
     onPageChange(currentPage + 1);
   };
+
   const handleOnPrevious = () => {
     if (currentPage - 1 < 1) return;
 

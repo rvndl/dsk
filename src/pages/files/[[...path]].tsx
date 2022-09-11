@@ -3,6 +3,7 @@ import { FileList, FileListBreadcrumb } from "@components/file-list";
 import { IconX } from "@components/icon";
 import { trpc } from "@utils/trpc";
 import { usePath } from "@hooks/use-path";
+import { NewFolder } from "@components/new-folder";
 
 const Files = () => {
   const [path] = usePath();
@@ -25,7 +26,8 @@ const Files = () => {
     <div className="w-full pt-10 mx-auto lg:w-4/5 xl:w-3/5">
       <div className="flex items-center w-full mb-2">
         <FileListBreadcrumb path={path} />
-        <div className="ml-auto shrink-0">
+        <div className="flex gap-2 ml-auto shrink-0">
+          <NewFolder path={path} />
           <FileUpload path={path} />
         </div>
       </div>
