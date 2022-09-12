@@ -66,4 +66,28 @@ export const share = protectedRouter()
         });
       }
     },
+  })
+  .mutation("update", {
+    input: z.object({
+      id: z.string(),
+      limits: z.object({
+        downloadLimit: z.number().min(-1).optional(),
+        expires: z.number().optional(),
+        permanent: z.boolean().optional(),
+      }),
+    }),
+    async resolve({ input }) {
+      const { id, limits } = input;
+
+      const share = await prisma.share.update({
+        where: { id },
+        data: {
+          ...limits,
+          downloadLimit: limits.downloadLimit === 0 ? -1 : limits.downloadLimit,
+          expires: new Date(limits.expires || 0),
+        },
+      });
+
+      return share;
+    },
   });
