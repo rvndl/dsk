@@ -5,6 +5,7 @@ import { TRPCError } from "@trpc/server";
 import { getFilePath, readDirectory } from "@server/lib/file";
 import { prisma } from "../db/prisma";
 import { protectedRouter } from "@server/protected-router";
+import { unlink, stat } from "fs/promises";
 
 export const file = protectedRouter()
   .query("get-all", {
@@ -91,5 +92,26 @@ export const file = protectedRouter()
       });
 
       return true;
+    },
+  })
+  .mutation("delete-multiple", {
+    input: z.object({
+      paths: z.array(z.string()),
+    }),
+    async resolve({ input }) {
+      const paths = input.paths.map((path) => getFilePath(path));
+
+      await Promise.all(
+        paths.map(async (path) => {
+          const inode = (await stat(path)).ino + "";
+          await unlink(path);
+
+          return prisma.file.deleteMany({
+            where: {
+              inode: inode,
+            },
+          });
+        })
+      );
     },
   });

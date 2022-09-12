@@ -5,6 +5,8 @@ import { humanFileSize } from "@utils/utils";
 import { IconFolder, IconMatchExtension } from "@components/icon";
 import { useEffect, useState } from "react";
 import { FileListItemMenu } from "./item-menu";
+import { Checkbox } from "@components/ui";
+import { useSelectedItemsStore } from "@store/selected-items";
 
 type FileType = inferQueryResponse<"file.get-all">[0];
 
@@ -14,7 +16,9 @@ interface Props {
 }
 
 export const FileListItem = ({ file, path }: Props) => {
+  const [checked, setChecked] = useState(false);
   const [linkPath, setLinkPath] = useState("");
+  const { add, remove, items } = useSelectedItemsStore((state) => state);
 
   useEffect(() => {
     if (file.type === "file") {
@@ -24,8 +28,29 @@ export const FileListItem = ({ file, path }: Props) => {
     }
   }, [file, path]);
 
+  useEffect(() => {
+    const itemPath = `${path}/${file.name}`;
+    const item = items.find((item) => item.path === itemPath);
+    if (!item) {
+      setChecked(false);
+    }
+  }, [items, linkPath]);
+
+  const handleOnChange = () => {
+    const itemPath = `${path}/${file.name}`;
+    checked ? remove(itemPath) : add(itemPath);
+    setChecked((b) => !b);
+  };
+
   return (
-    <div className="flex w-full p-4 border-b border-slate-200 hover:bg-slate-100/25 group">
+    <div className="flex items-center w-full p-4 border-b border-slate-200 hover:bg-slate-100/25 group">
+      {file.type === "file" ? (
+        <div className="flex items-center pr-3">
+          <Checkbox checked={checked} onChange={handleOnChange} />
+        </div>
+      ) : (
+        <div className="pr-6">&nbsp;</div>
+      )}
       <Link href={linkPath}>
         <div className="flex w-1/3 cursor-pointer">
           <span className="mr-2">
