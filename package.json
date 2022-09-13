@@ -5,10 +5,12 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "yarn prisma:gen && yarn prisma:deploy && next start",
     "lint": "next lint",
     "format": "prettier --write .",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "prisma:gen": "prisma generate",
+    "prisma:deploy": "prisma migrate deploy"
   },
   "dependencies": {
     "@headlessui/react": "^1.6.5",
