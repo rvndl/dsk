@@ -1,6 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# exclude contents
 uploads/*
+!uploads/.gitkeep 
 
 # dependencies
 /node_modules
@@ -36,3 +38,6 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+# database
+prisma/dsk.db

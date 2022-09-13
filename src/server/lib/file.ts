@@ -36,6 +36,8 @@ export function readDirectory(dir: string) {
 
         traverseDir(fullPath);
       } else {
+        if (file === ".gitkeep") return;
+
         results.push({
           name: file,
           ext: file.match(/\.[0-9a-z]+$/i)?.[0],

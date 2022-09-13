@@ -16,7 +16,7 @@ export const SelectedItems = () => {
       },
       onSuccess() {
         ctx.invalidateQueries("file.get-all");
-        toast.success(`Deleted ${items.length} items`);
+        toast.success(`Deleted ${items.length} item(s)`);
 
         clear();
       },
@@ -24,7 +24,6 @@ export const SelectedItems = () => {
   );
 
   const handleOnClear = () => clear();
-
   const handleOnDelete = () => {
     deleteMultiple({ paths: items.map((item) => item.path) });
   };
@@ -46,7 +45,7 @@ export const SelectedItems = () => {
           </div>
           <div className="flex flex-col ml-auto border-l border-gray-200">
             <Button
-              className="bg-red-500 rounded-none rounded-tr-lg hover:bg-red-600"
+              className="rounded-none rounded-tr-lg bg-red-500/100 hover:bg-red-600/100"
               onClick={handleOnDelete}
             >
               Delete
