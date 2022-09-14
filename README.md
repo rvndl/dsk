@@ -36,7 +36,7 @@
      # Access password
      DSK_PASSWORD="password"
   
-     # JWT Secret for signing tokens, remember to change this and make   it long and unguessable
+     # JWT Secret for signing tokens, remember to change this and make it long and unguessable
      AUTH_SECRET="secret"
      ```
 
