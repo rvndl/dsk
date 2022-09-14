@@ -40,11 +40,13 @@
      AUTH_SECRET="secret"
      ```
 
-3. Start the server
+3. Build and start the server
    ```sh
    yarn build && yarn start
    ```
 
 ### Notes
 
-By default prisma uses `sqlite` as the default connector, you can change it by editing `prisma/schema.prisma`. [More informations](https://www.prisma.io/docs/concepts/database-connectors)
+By default prisma uses `sqlite` as the default connector, you can change it by editing `prisma/schema.prisma`.
+
+[More informations](https://www.prisma.io/docs/concepts/database-connectors)
