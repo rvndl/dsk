@@ -10,14 +10,7 @@
 
 1. Install required packages
    ```sh
-   # using yarn 
    yarn
-   
-   # using npm 
-   npm i
-
-   # using pnpm
-   pnpm i
    ```
 
 2. Set up the environment variables
