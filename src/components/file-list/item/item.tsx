@@ -34,7 +34,7 @@ export const FileListItem = ({ file, path }: Props) => {
     if (!item) {
       setChecked(false);
     }
-  }, [items, linkPath]);
+  }, [items, linkPath, path, file.name]);
 
   const handleOnChange = () => {
     const itemPath = `${path}/${file.name}`;
