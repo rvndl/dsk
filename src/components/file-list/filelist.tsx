@@ -11,13 +11,11 @@ interface Props {
 }
 
 export const FileList = ({ files, path }: Props) => {
-  const [pathString, setPathString] = useState("/");
-
-  useEffect(() => {
-    if (!path.length) return setPathString("/");
+  const pathString = useMemo(() => {
+    if (!path.length) return "/";
 
     const joined = path.join("/");
-    setPathString(joined);
+    return joined;
   }, [path]);
 
   const contents = useMemo(
