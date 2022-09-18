@@ -8,12 +8,17 @@
 
 ### Instalation
 
-1. Install required packages
+1. Clone the repo
+   ```sh
+   git clone https://github.com/rvndl/dsk.git
+   ```
+
+2. Install required packages
    ```sh
    yarn
    ```
 
-2. Set up the environment variables
+3. Set up the environment variables
 
    - Rename `.env-example` to `.env` 
 
